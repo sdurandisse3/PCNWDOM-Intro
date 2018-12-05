@@ -1,6 +1,6 @@
 const playlist = {
-  name: 'United States Top 10',
-  description: 'The top songs in the US right now.',
+  name: 'Good Vibes',
+  description: 'Vibrant music that will get you going.',
   songs: [
     {
       name: 'thank u, next',
@@ -69,3 +69,60 @@ const playlist = {
     }
   ]
 };
+
+let state = {
+  name: []
+}
+
+const playlistObjectToHTML = (song) => {
+  return `<div class='row mb-2'>
+  <div class='col-1'>
+    <img src="${song.image}" class="rounded" style='width: 50px; height: 50px;'>
+  </div>
+  <div class='col-11'>
+    <p class='mb-0 mt-1 song-name'>${song.name}</p>
+    <p class='my-0 song-artists'>${song.artists}</p>
+  </div>
+</div>`;
+}
+
+
+const render = state => {
+
+  const title = document.querySelector('h1');
+  title.innerText = playlist.name;
+
+  const desc = document.querySelector('.lead');
+  desc.innerText = playlist.description;
+
+  const song_list = document.querySelector('.song-list');
+
+  let combinedHTML = '';
+  for (let i = 0; i < playlist.songs.length; i++) {
+    combinedHTML += playlistObjectToHTML(playlist.songs[i]);
+  }
+
+  song_list.innerHTML = combinedHTML;
+  console.log(combinedHTML);
+
+  const letterCheck = (state) => {
+
+    let input = document.querySelector('.js-input');
+    const filter = input.value.toUpperCase();
+    let song_name = document.querySelector("row mb-2");
+    for (i = 0; i < song_name.length; i++) {
+      let input_song = song_name[i].document.querySelector("input_song")[0];
+      txtValue = input_song.textContent || input_song.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        song_name[i].display = "";
+      } else {
+        song_name[i].display = "none";
+      }
+    }
+  }
+}
+
+render(state);
+
+
+
