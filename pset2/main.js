@@ -72,7 +72,9 @@ const playlist = {
 
 let state = {
   name: []
-}
+ }
+
+let songs = playlist.songs;
 
 const playlistObjectToHTML = (song) => {
   return `<div class='row mb-2'>
@@ -87,7 +89,7 @@ const playlistObjectToHTML = (song) => {
 }
 
 
-const render = state => {
+const render = playlist => {
 
   const title = document.querySelector('h1');
   title.innerText = playlist.name;
@@ -104,25 +106,28 @@ const render = state => {
 
   song_list.innerHTML = combinedHTML;
   console.log(combinedHTML);
-
-  const letterCheck = (state) => {
-
-    let input = document.querySelector('.js-input');
-    const filter = input.value.toUpperCase();
-    let song_name = document.querySelector("row mb-2");
-    for (i = 0; i < song_name.length; i++) {
-      let input_song = song_name[i].document.querySelector("input_song")[0];
-      txtValue = input_song.textContent || input_song.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        song_name[i].display = "";
-      } else {
-        song_name[i].display = "none";
-      }
-    }
-  }
 }
 
-render(state);
+render(playlist);
+
+  // const letterCheck = (state) => {
+
+    const input = document.getElementById('.js-input');
+    const filter = input.value.toLowerCase();
+
+    input.addEventListener('input', (e) => {
+      let inputResults = [];
+      newPlaylist = {name: 'Good Vibes',
+      description: 'Vibrant music that will get you going.',};
+    
+      for (let i = 0; i < playlist.songs.length; i++) {
+        if (playlist.songs[i].name.toLowerCase().includes(filter)) {
+          inputResults.push(playlist.songs[i]);
+      }
+    }
+    newPlaylist['songs'] = inputResults;
+    render(newPlaylist);
+    })
 
 
 
