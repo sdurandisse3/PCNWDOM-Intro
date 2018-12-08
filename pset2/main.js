@@ -72,7 +72,7 @@ const playlist = {
 
 let state = {
   name: []
- }
+}
 
 let songs = playlist.songs;
 
@@ -110,24 +110,24 @@ const render = playlist => {
 
 render(playlist);
 
-  // const letterCheck = (state) => {
+const input = document.getElementById('.js-input');
+const filter = input.value.toLowerCase();
 
-    const input = document.getElementById('.js-input');
-    const filter = input.value.toLowerCase();
+input.addEventListener('input', (e) => {
+  let inputResults = [];
+  newPlaylist = {
+    name: 'Good Vibes',
+    description: 'Vibrant music that will get you going.',
+  };
 
-    input.addEventListener('input', (e) => {
-      let inputResults = [];
-      newPlaylist = {name: 'Good Vibes',
-      description: 'Vibrant music that will get you going.',};
-    
-      for (let i = 0; i < playlist.songs.length; i++) {
-        if (playlist.songs[i].name.toLowerCase().includes(filter)) {
-          inputResults.push(playlist.songs[i]);
-      }
+  for (let i = 0; i < playlist.songs.length; i++) {
+    if (playlist.songs[i].name.toLowerCase().includes(filter)) {
+      inputResults.push(playlist.songs[i]);
     }
-    newPlaylist['songs'] = inputResults;
-    render(newPlaylist);
-    })
+  }
+  newPlaylist['songs'] = inputResults;
+  render(newPlaylist);
+})
 
 
 
